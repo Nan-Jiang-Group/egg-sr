@@ -32,8 +32,8 @@
   <title> EGG-SR </title>
   
   <!-- Favicon and App Icons -->
-  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
-  <link rel="apple-touch-icon" href="static/images/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="static/images/egg.ico">
+  <link rel="apple-touch-icon" href="static/images/egg.ico">
   
   <!-- Critical CSS - Load synchronously -->
   <link rel="stylesheet" href="static/css/bulma.min.css">
@@ -47,8 +47,14 @@
   
   <!-- Katex  -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" integrity="sha384-WcoG4HRXMzYzfCgiyfrySxx90XSl2rxY5mnVY5TwtWE6KLrArNKn0T/mOgNL0Mmi" crossorigin="anonymous">
+
+  <!-- The loading of KaTeX is deferred to speed up page rendering -->
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js" integrity="sha384-J+9dG2KMoiR9hqcFao0IBLwxt6zpcyN68IgwzsCSkbreXUjmNVRhPFTssqdSGjwQ" crossorigin="anonymous"></script>
-  
+
+  <!-- To automatically render math in text elements, include the auto-render extension: -->
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
   <!-- Fallback for browsers that don't support preload -->
   <noscript>
     <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
@@ -94,7 +100,7 @@
                 <span class="author-block">
                   <a href="https://openreview.net/profile?id=~Ziyi_Wang9" target="_blank">Ziyi Wang</a><sup>2</sup>,</span>
                   <span class="author-block">
-                    <a href="https://www.cs.purdue.edu/homes/yexiang/" target="_blank">Yexiang Xue<sup>2</sup></a>
+                    <a href="https://www.cs.purdue.edu/homes/yexiang/" target="_blank">Yexiang Xue</a><sup>2</sup>
                   </span>
                   </div>
 
@@ -110,7 +116,18 @@
 
                   <div class="column has-text-centered">
                     <div class="publication-links">
-
+                  
+                      <!-- TODO: Update with your arXiv paper ID -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/submit/6965359/view" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              
                   <!-- TODO: Replace with your GitHub repository URL -->
                   <span class="link-block">
                     <a href="https://www.github.com/jiangnanhugo/egg-sr" target="_blank"
@@ -122,16 +139,7 @@
                   </a>
                 </span>
 
-                <!-- TODO: Update with your arXiv paper ID -->
-                <span class="link-block">
-                  <a href="https://www.github.com/jiangnanhugo/egg-sr" target="_blank"
-                  class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                    <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>arXiv</span>
-                </a>
-              </span>
+                
             </div>
           </div>
         </div>
@@ -140,20 +148,19 @@
   </div>
 </section>
 
-
 <!-- Teaser video-->
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <!-- TODO: Replace with your teaser video -->
-      <video poster="" id="tree" autoplay controls muted loop height="100%" preload="metadata">
-        <!-- TODO: Add your video file path here -->
-        <source src="static/videos/banner_video.mp4" type="video/mp4">
-      </video>
+      <img src="static/images/egg-log.png" alt="Main diagram" loading="lazy"/>
       <!-- TODO: Replace with your video description -->
-      <h2 class="subtitle has-text-centered">
-        Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus. 
-      </h2>
+      <h3 class="subtitle has-text-justified">
+       Figure 1: Applying the rewrite rule \( \log(a\times b) \leadsto \log(a) + \log(b)\) to an e-graph representing expression \(\log(x_1^3x_2^2)\). 
+       <strong>(a)</strong> The initialized e-graph consists of <em>e-classes</em> (dashed boxes), each containing equivalent <em>e-nodes</em> (solid boxes). Edges connect e-nodes to their child e-classes. 
+       <strong>(b)</strong> The matching step identifies the e-nodes that match the \( \mathtt{LHS} \) of the rule. 
+       <strong>(c)</strong> The substitution step adds new e-classes and edges corresponding to the \( \mathtt{RHS} \) to the e-graph. 
+       <strong>(d)</strong> The merging step consolidates equivalent e-classes. The final e-graph in (d) compactly represents two equivalent expressions.
+      </h3>
     </div>
   </div>
 </section>
@@ -169,7 +176,7 @@
           <!-- TODO: Replace with your paper abstract -->
           <p>
             Symbolic regression seeks to uncover physical laws from experimental data by searching for closed-form expressions, which is an important task in AI-driven scientific discovery. Yet the exponential growth of the search space of expression renders the task computationally challenging.
-A promising yet underexplored direction for reducing the effective search space and accelerating training lies in symbolic equivalence: many expressions, although syntactically different, define the same function -- for example, $\log(x_1^2x_2^3)$, $\log(x_1^2)+\log(x_2^3)$, and $2\log(x_1)+3\log(x_2)$.
+A promising yet underexplored direction for reducing the effective search space and accelerating training lies in symbolic equivalence: many expressions, although syntactically different, define the same function - for example,  \( \log(x_1^2x_2^3) \), \( \log(x_1^2)+\log(x_2^3) \), and \( 2\log(x_1)+3\log(x_2) \).
 Existing algorithms treat such variants as distinct outputs, leading to redundant exploration and slow learning.
 We introduce EGG-SR, a unified framework that integrates equality graphs (e-graphs) into diverse symbolic regression algorithms, including Monte Carlo Tree Search (MCTS), deep reinforcement learning (DRL), and large language models (LLMs).
 EGG-SR compactly represents equivalent expressions through the proposed EGG module, enabling more efficient learning by:
@@ -177,7 +184,7 @@ EGG-SR compactly represents equivalent expressions through the proposed EGG modu
 (2) aggregating rewards across equivalence classes in EGG-DRL, and
 (3) enriching feedback prompts in EGG-LLM.
 Under mild assumptions, we show that embedding e-graphs tightens the regret bound of MCTS and reduces the variance of the DRL gradient estimator.
-Empirically, EGG-SR consistently enhances multiple baselines across challenging benchmarks, discovering equations with lower normalized mean squared error than state-of-the-art methods. Code implementation is available at: \url{https://www.github.com/jiangnanhugo/egg-sr.}
+Empirically, EGG-SR consistently enhances multiple baselines across challenging benchmarks, discovering equations with lower normalized mean squared error than state-of-the-art methods. Code implementation is available at: <a href="https://www.github.com/jiangnanhugo/egg-sr">github.com/jiangnanhugo/egg-sr</a>.
           </p>
         </div>
       </div>
@@ -194,33 +201,27 @@ Empirically, EGG-SR consistently enhances multiple baselines across challenging 
       <div id="results-carousel" class="carousel results-carousel">
        <div class="item">
         <!-- TODO: Replace with your research result images -->
-        <img src="static/images/carousel1.jpg" alt="First research result visualization" loading="lazy"/>
+        <img src="static/images/egg-mcts.png" alt="First research result visualization" loading="lazy"/>
         <!-- TODO: Replace with description of this result -->
         <h2 class="subtitle has-text-centered">
-          First image description.
+          Figure 2: Execution pipeline of classic MCTS and our EGG-MCTS.
         </h2>
       </div>
       <div class="item">
         <!-- Your image here -->
-        <img src="static/images/carousel2.jpg" alt="Second research result visualization" loading="lazy"/>
+        <img src="static/images/egg-drl.png" alt="Second research result visualization" loading="lazy"/>
         <h2 class="subtitle has-text-centered">
-          Second image description.
+         Figure 3: Framework of classic DRL and our EGG-DRL. 
         </h2>
       </div>
       <div class="item">
         <!-- Your image here -->
-        <img src="static/images/carousel3.jpg" alt="Third research result visualization" loading="lazy"/>
+        <img src="static/images/egg-llm.png" alt="Third research result visualization" loading="lazy"/>
         <h2 class="subtitle has-text-centered">
-         Third image description.
+         Figure 4: Pipeline of LLM-SR and EGG-LLM. 
        </h2>
      </div>
-     <div class="item">
-      <!-- Your image here -->
-      <img src="static/images/carousel4.jpg" alt="Fourth research result visualization" loading="lazy"/>
-      <h2 class="subtitle has-text-centered">
-        Fourth image description.
-      </h2>
-    </div>
+     
   </div>
 </div>
 </div>
